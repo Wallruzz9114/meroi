@@ -12,6 +12,7 @@ namespace Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasPostgresExtension("uuid-ossp");
             modelBuilder
                 .Entity<UserOrder>()
                 .HasKey(uo => new { uo.UserId, uo.OrderId });

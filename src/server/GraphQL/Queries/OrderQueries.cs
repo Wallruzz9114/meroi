@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace GraphQL.Queries
             await dbContext.Orders.ToListAsync();
 
         [GraphQLDescription("Represents the query to get an order by id.")]
-        public async Task<Order> GetOrderAsync([ID(nameof(Order))] int id, OrderByIdDataLoader dataLoader, CancellationToken cancellationToken) =>
+        public async Task<Order> GetOrderAsync([ID(nameof(Order))] Guid id, OrderByIdDataLoader dataLoader, CancellationToken cancellationToken) =>
             await dataLoader.LoadAsync(id, cancellationToken);
     }
 }

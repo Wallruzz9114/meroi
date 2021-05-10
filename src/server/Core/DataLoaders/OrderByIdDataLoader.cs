@@ -11,7 +11,7 @@ using Models.Entities;
 
 namespace Core.DataLoaders
 {
-    public class OrderByIdDataLoader : BatchDataLoader<int, Order>
+    public class OrderByIdDataLoader : BatchDataLoader<Guid, Order>
     {
         private readonly IDbContextFactory<AppDbContext> _dbContextFactory;
 
@@ -21,7 +21,7 @@ namespace Core.DataLoaders
                 throw new ArgumentNullException(nameof(dbContextFactory));
         }
 
-        protected override async Task<IReadOnlyDictionary<int, Order>> LoadBatchAsync(IReadOnlyList<int> keys, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyDictionary<Guid, Order>> LoadBatchAsync(IReadOnlyList<Guid> keys, CancellationToken cancellationToken)
         {
             await using var dbContext = _dbContextFactory.CreateDbContext();
             var orderDictionary = await dbContext.Orders

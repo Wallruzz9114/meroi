@@ -33,13 +33,13 @@ namespace GraphQL.Types
         {
             public static async Task<IEnumerable<User>> GetUsersAsync(Order order, [ScopedService] AppDbContext dbContext, UserByIdDataLoader dataLoader, CancellationToken cancellationToken)
             {
-                var orderIds = await dbContext.Users
+                var userIds = await dbContext.Users
                     .Where(u => u.Id == order.Id)
                     .Include(u => u.UserOrders)
                     .SelectMany(u => u.UserOrders.Select(t => t.UserId))
                     .ToArrayAsync(cancellationToken);
 
-                var users = await dataLoader.LoadAsync(orderIds, cancellationToken);
+                var users = await dataLoader.LoadAsync(userIds, cancellationToken);
 
                 return users;
             }

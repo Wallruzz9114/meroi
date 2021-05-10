@@ -13,6 +13,6 @@ namespace Data.ViewModels.Payloads.Orders
 
         protected BaseOrderPayload(IReadOnlyList<UserError> errors) : base(errors) { }
 
-        public Order? Order { get; }
+        public Order? Order { get; init; }
     }
 }

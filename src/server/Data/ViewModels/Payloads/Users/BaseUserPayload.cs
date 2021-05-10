@@ -13,6 +13,6 @@ namespace Data.ViewModels.Payloads.Users
 
         protected BaseUserPayload(IReadOnlyList<UserError> errors) : base(errors) { }
 
-        public User? User { get; }
+        public User? User { get; init; }
     }
 }

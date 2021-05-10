@@ -11,7 +11,7 @@ using Models.Entities;
 
 namespace Core.DataLoaders
 {
-    public class UserByIdDataLoader : BatchDataLoader<int, User>
+    public class UserByIdDataLoader : BatchDataLoader<Guid, User>
     {
         private readonly IDbContextFactory<AppDbContext> _dbContextFactory;
 
@@ -21,7 +21,7 @@ namespace Core.DataLoaders
                 throw new ArgumentNullException(nameof(dbContextFactory));
         }
 
-        protected override async Task<IReadOnlyDictionary<int, User>> LoadBatchAsync(IReadOnlyList<int> keys, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyDictionary<Guid, User>> LoadBatchAsync(IReadOnlyList<Guid> keys, CancellationToken cancellationToken)
         {
             await using var dbContext = _dbContextFactory.CreateDbContext();
             var userDictionary = await dbContext.Users
