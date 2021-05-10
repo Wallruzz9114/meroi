@@ -21,16 +21,21 @@ namespace API.Configuration.Services
             services
                 .AddGraphQLServer()
                 .AddQueryType(t => t.Name("Queries"))
-                    .AddType<UserQueries>()
+                    .AddTypeExtension<UserQueries>()
                         .AddType<UserType>()
-                        .AddDataLoader<OrderByIdDataLoader>()
-                    .AddType<OrderQueries>()
+                        .AddDataLoader<UserByIdDataLoader>()
+                    .AddTypeExtension<OrderQueries>()
                         .AddType<OrderType>()
                         .AddDataLoader<OrderByIdDataLoader>()
+                    .AddTypeExtension<OrderItemQueries>()
+                        .AddDataLoader<OrderItemByIdDataLoader>()
+                    .AddTypeExtension<ProductQueries>()
+                        .AddDataLoader<ProductByIdDataLoader>()
                 .AddMutationType(t => t.Name("Mutations"))
-                    .AddType<UserMutations>()
-                    .AddType<OrderMutations>()
-                .EnableRelaySupport();
+                    .AddTypeExtension<UserMutations>()
+                    .AddTypeExtension<OrderMutations>()
+                    .AddTypeExtension<ProductMutations>()
+                    .AddTypeExtension<OrderItemMutations>();
         }
     }
 }

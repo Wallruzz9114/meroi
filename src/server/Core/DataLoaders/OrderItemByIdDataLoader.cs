@@ -11,24 +11,24 @@ using Models.Entities;
 
 namespace Core.DataLoaders
 {
-    public class UserByIdDataLoader : BatchDataLoader<int, User>
+    public class OrderItemByIdDataLoader : BatchDataLoader<int, OrderItem>
     {
         private readonly IDbContextFactory<AppDbContext> _dbContextFactory;
 
-        public UserByIdDataLoader(IBatchScheduler batchScheduler, IDbContextFactory<AppDbContext> dbContextFactory) : base(batchScheduler)
+        public OrderItemByIdDataLoader(IBatchScheduler batchScheduler, IDbContextFactory<AppDbContext> dbContextFactory) : base(batchScheduler)
         {
             _dbContextFactory = dbContextFactory ??
                 throw new ArgumentNullException(nameof(dbContextFactory));
         }
 
-        protected override async Task<IReadOnlyDictionary<int, User>> LoadBatchAsync(IReadOnlyList<int> keys, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyDictionary<int, OrderItem>> LoadBatchAsync(IReadOnlyList<int> keys, CancellationToken cancellationToken)
         {
             await using var dbContext = _dbContextFactory.CreateDbContext();
-            var userDictionary = await dbContext.Users
+            var orderItemDictionary = await dbContext.OrderItems
                 .Where(u => keys.Contains(u.Id))
                 .ToDictionaryAsync(t => t.Id, cancellationToken);
 
-            return userDictionary;
+            return orderItemDictionary;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Models.Entities
         [Required]
         public DateTime? OrderDate { get; set; }
 
-        public ICollection<UserOrder> UserOrders { get; set; } = new List<UserOrder>();
+        public virtual ICollection<UserOrder> UserOrders { get; set; } = new List<UserOrder>();
+        public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 }

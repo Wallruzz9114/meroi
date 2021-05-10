@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,7 +6,6 @@ using Data;
 using Data.Extensions;
 using HotChocolate;
 using HotChocolate.Types;
-using HotChocolate.Types.Relay;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
 
@@ -22,7 +20,7 @@ namespace GraphQL.Queries
             await dbContext.Orders.ToListAsync();
 
         [GraphQLDescription("Represents the query to get an order by id.")]
-        public async Task<Order> GetOrderAsync([ID(nameof(Order))] Guid id, OrderByIdDataLoader dataLoader, CancellationToken cancellationToken) =>
+        public async Task<Order> GetOrderAsync(int id, OrderByIdDataLoader dataLoader, CancellationToken cancellationToken) =>
             await dataLoader.LoadAsync(id, cancellationToken);
     }
 }

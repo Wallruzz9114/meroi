@@ -4,9 +4,9 @@ namespace Models.Entities
 {
     public class UserOrder
     {
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
         public User? User { get; set; }
-        public Guid OrderId { get; set; }
+        public int OrderId { get; set; }
         public Order? Order { get; set; }
     }
 }

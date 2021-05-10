@@ -22,7 +22,7 @@ namespace GraphQL.Queries
         public async Task<List<User>> GetUsersAsync([ScopedService] AppDbContext dbContext) =>
             await dbContext.Users.ToListAsync();
 
-        public async Task<User> GetUserAsync([ID(nameof(User))] Guid id, UserByIdDataLoader dataLoader, CancellationToken cancellationToken) =>
+        public async Task<User> GetUserAsync([ID(nameof(User))] int id, UserByIdDataLoader dataLoader, CancellationToken cancellationToken) =>
             await dataLoader.LoadAsync(id, cancellationToken);
     }
 }

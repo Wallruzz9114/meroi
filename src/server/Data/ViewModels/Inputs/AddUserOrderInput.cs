@@ -5,5 +5,5 @@ using Models.Entities;
 
 namespace Data.ViewModels.Inputs
 {
-    public record AddUserOrderInput([ID(nameof(User))] Guid UserId, [ID(nameof(Order))] IReadOnlyList<Guid> OrderIds);
+    public record AddUserOrderInput([ID(nameof(User))] int UserId, [ID(nameof(Order))] IReadOnlyList<int> OrderIds);
 }
