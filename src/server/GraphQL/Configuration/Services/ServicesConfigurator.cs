@@ -1,3 +1,4 @@
+using Core.DataLoaders;
 using Data;
 using Data.ViewModels.Types;
 using GraphQL.Configuration.Services;
@@ -22,6 +23,7 @@ namespace API.Configuration.Services
                 .AddQueryType(t => t.Name("Queries"))
                     .AddType<UserType>()
                     .AddType<UserQueries>()
+                        .AddDataLoader<OrderByIdDataLoader>()
                 .AddMutationType(t => t.Name("Mutations"))
                     .AddType<UserMutations>()
                 .AddFiltering()
