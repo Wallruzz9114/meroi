@@ -1,12 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Data;
+using Data.ViewModels.Inputs;
+using Data.ViewModels.Payloads.Users;
 using HotChocolate;
 using HotChocolate.Data;
 using HotChocolate.Types;
 using Models.Entities;
-using Tutorial.ViewModels.Inputs;
-using Tutorial.ViewModels.Payloads;
 
 namespace GraphQL.Mutations
 {

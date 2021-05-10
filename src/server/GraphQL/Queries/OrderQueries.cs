@@ -1,10 +1,13 @@
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Core.DataLoaders;
 using Data;
+using Data.Extensions;
 using HotChocolate;
-using HotChocolate.Data;
 using HotChocolate.Types;
+using HotChocolate.Types.Relay;
+using Microsoft.EntityFrameworkCore;
 using Models.Entities;
 
 namespace GraphQL.Queries
@@ -12,9 +15,13 @@ namespace GraphQL.Queries
     [ExtendObjectType("Queries")]
     public class OrderQueries
     {
-        [UseDbContext(typeof(AppDbContext))]
+        [UseAppDbContext]
+        [GraphQLDescription("Represents the query to get all orders.")]
+        public async Task<List<Order>> GetOrdersAsync([ScopedService] AppDbContext dbContext) =>
+            await dbContext.Orders.ToListAsync();
+
         [GraphQLDescription("Represents the query to get an order by id.")]
-        public Task<Order> GetOrder(int id, OrderByIdDataLoader dataLoader, CancellationToken cancellationToken) =>
-            dataLoader.LoadAsync(id, cancellationToken);
+        public async Task<Order> GetOrderAsync([ID(nameof(Order))] int id, OrderByIdDataLoader dataLoader, CancellationToken cancellationToken) =>
+            await dataLoader.LoadAsync(id, cancellationToken);
     }
 }
