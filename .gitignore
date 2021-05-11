@@ -24,6 +24,13 @@ project.lock.json
 *.userosscache
 *.sln.docstates
 
+.env
+.env.local
+.env.example
+.env.development.local
+.env.test.local
+.env.production.local
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
