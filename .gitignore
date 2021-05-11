@@ -17,6 +17,7 @@ InvestIn.Frontend/
 project.lock.json
 .DS_Store
 *.pyc
+.next
 
 # User-specific files
 *.suo
