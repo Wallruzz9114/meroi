@@ -9,7 +9,7 @@ using Models.Entities;
 
 namespace GraphQL.Mutations
 {
-    [ExtendObjectType("Mutation")]
+    [ExtendObjectType("Mutations")]
     public class ProductMutations
     {
         [UseAppDbContext]

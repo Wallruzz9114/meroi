@@ -1,17 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Data;
 using Data.Extensions;
-using Data.Interfaces;
-using Data.ViewModels;
 using Data.ViewModels.Inputs;
 using Data.ViewModels.Payloads.Users;
 using HotChocolate;
 using HotChocolate.Types;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Models.Abstractions;
 using Models.Entities;
 using BC = BCrypt.Net.BCrypt;
@@ -23,7 +17,7 @@ namespace GraphQL.Mutations
     public class UserMutations
     {
         [UseAppDbContext]
-        public async Task<AddUserPayload> AddUserAsync(AddUserInput input, [ScopedService] AppDbContext dbContext, CancellationToken cancellationToken)
+        public async Task<AddUserPayload> RegisterAsync(AddUserInput input, [ScopedService] AppDbContext dbContext, CancellationToken cancellationToken)
         {
             var hashedPassword = BC.HashPassword(input.Password);
 

@@ -1,0 +1,6 @@
+query order($id: Int!) {
+  order(id: $id) {
+    id
+    orderDate
+  }
+}

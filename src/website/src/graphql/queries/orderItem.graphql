@@ -1,0 +1,8 @@
+query orderItem($id: Int!) {
+  orderItem(id: $id) {
+    id
+    productId
+    orderId
+    count
+  }
+}

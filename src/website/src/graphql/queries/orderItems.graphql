@@ -1,0 +1,8 @@
+query orderItems {
+  orderItems {
+    id
+    productId
+    orderId
+    count
+  }
+}
