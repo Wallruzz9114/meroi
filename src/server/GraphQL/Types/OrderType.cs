@@ -6,7 +6,6 @@ using Core.DataLoaders;
 using Data;
 using Data.Extensions;
 using HotChocolate;
-using HotChocolate.Resolvers;
 using HotChocolate.Types;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
@@ -18,15 +17,20 @@ namespace GraphQL.Types
         protected override void Configure(IObjectTypeDescriptor<Order> descriptor)
         {
             descriptor
-              .ImplementsNode()
-              .IdField(t => t.Id)
-              .ResolveNode((ctx, id) => ctx.DataLoader<OrderByIdDataLoader>().LoadAsync(id, ctx.RequestAborted));
+                .Field(t => t.UserOrders)
+                .ResolveWith<OrderResolvers>(t => OrderResolvers.GetUsersAsync(default!, default!, default!, default))
+                .UseAppDbContext<AppDbContext>()
+                .Name("users");
 
             descriptor
-              .Field(t => t.UserOrders)
-              .ResolveWith<OrderResolvers>(t => OrderResolvers.GetUsersAsync(default!, default!, default!, default))
-              .UseAppDbContext<AppDbContext>()
-              .Name("users");
+                .Field(t => t.OrderItems)
+                .ResolveWith<OrderResolvers>(t => OrderResolvers.GetOrderItemsAsync(default!, default!, default!, default))
+                .UseAppDbContext<AppDbContext>()
+                .Name("orderItems");
+
+            descriptor.Field(u => u.CreatedAt).Ignore();
+            descriptor.Field(u => u.UpdatedAt).Ignore();
+            descriptor.Field(u => u.LastAccessedAt).Ignore();
         }
 
         private class OrderResolvers
@@ -42,6 +46,19 @@ namespace GraphQL.Types
                 var users = await dataLoader.LoadAsync(userIds, cancellationToken);
 
                 return users;
+            }
+
+            public static async Task<IEnumerable<OrderItem>> GetOrderItemsAsync(Order order, [ScopedService] AppDbContext dbContext, OrderItemByIdDataLoader dataLoader, CancellationToken cancellationToken)
+            {
+                var ids = await dbContext.Orders
+                    .Where(o => o.Id == order.Id)
+                    .Include(o => o.OrderItems)
+                    .SelectMany(oi => oi.OrderItems.Select(t => t.Id))
+                    .ToArrayAsync(cancellationToken);
+
+                var orderItems = await dataLoader.LoadAsync(ids, cancellationToken);
+
+                return orderItems;
             }
         }
     }

@@ -18,7 +18,10 @@ namespace GraphQL.Mutations
             var product = new Product
             {
                 Name = input.Name,
-                Price = input.Price
+                Price = input.Price,
+                Type = input.Type,
+                Description = input.Description,
+                ImgUrl = input.ImgUrl
             };
 
             context.Products.Add(product);

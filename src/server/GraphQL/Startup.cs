@@ -23,8 +23,9 @@ namespace GraphQL
                 app.UseDeveloperExceptionPage();
 
             app.UseWebSockets();
-
+            app.UseCors("DefaultPolicy");
             app.UseRouting();
+
             app.UseEndpoints(endpoints => endpoints.MapGraphQL());
             app.UseGraphQLVoyager(new VoyagerOptions
             {

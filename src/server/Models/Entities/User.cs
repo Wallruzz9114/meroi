@@ -14,6 +14,10 @@ namespace Models.Entities
         [StringLength(100)]
         public string? Email { get; set; }
 
+        [Required]
+        [StringLength(100)]
+        public string? Address { get; set; }
+
         public virtual ICollection<UserOrder> UserOrders { get; set; } = new List<UserOrder>();
     }
 }

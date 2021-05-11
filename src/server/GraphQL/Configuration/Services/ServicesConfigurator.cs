@@ -18,6 +18,10 @@ namespace API.Configuration.Services
             services
                 .AddPooledDbContextFactory<AppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DatabaseConnection")));
 
+            services.AddCors(options =>
+                options.AddPolicy("DefaultPolicy", builder =>
+                    builder.AllowAnyHeader().WithMethods("GET", "POST").WithOrigins("*")));
+
             services
                 .AddGraphQLServer()
                 .AddQueryType(t => t.Name("Queries"))

@@ -6,7 +6,6 @@ using Core.DataLoaders;
 using Data;
 using Data.Extensions;
 using HotChocolate;
-using HotChocolate.Resolvers;
 using HotChocolate.Types;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
@@ -20,10 +19,12 @@ namespace GraphQL.Types
             descriptor.Description("Represents a User entity.");
 
             descriptor.Field(u => u.Id).Description("Represents the user's id");
+
             descriptor
-                .ImplementsNode()
-                .IdField(u => u.Id)
-                .ResolveNode((ctx, id) => ctx.DataLoader<UserByIdDataLoader>().LoadAsync(id, ctx.RequestAborted));
+                .Field(t => t.UserOrders)
+                .ResolveWith<UserResolvers>(t => UserResolvers.GetOrdersAsync(default!, default!, default!, default))
+                .UseAppDbContext<AppDbContext>()
+                .Name("orders");
 
             descriptor.Field(u => u.Email).Description("Represents the user's email");
             descriptor.Field(u => u.Name).Description("Represents the user's name");

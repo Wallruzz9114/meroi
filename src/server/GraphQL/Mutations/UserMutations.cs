@@ -21,7 +21,8 @@ namespace GraphQL.Mutations
             var newUser = new User
             {
                 Name = input.Name,
-                Email = input.Email
+                Email = input.Email,
+                Address = input.Address
             };
 
             dbContext.Users.Add(newUser);

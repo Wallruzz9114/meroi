@@ -25,8 +25,8 @@ namespace Core.DataLoaders
         {
             await using var dbContext = _dbContextFactory.CreateDbContext();
             var orderDictionary = await dbContext.Orders
-                .Where(s => keys.Contains(s.Id))
-                .ToDictionaryAsync(t => t.Id, cancellationToken);
+                .Where(o => keys.Contains(o.Id))
+                .ToDictionaryAsync(o => o.Id, cancellationToken);
 
             return orderDictionary;
         }

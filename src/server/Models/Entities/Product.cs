@@ -11,5 +11,17 @@ namespace Models.Entities
 
         [Required]
         public float? Price { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string? Type { get; set; }
+
+        [Required]
+        [StringLength(500)]
+        public string? Description { get; set; }
+
+        [Required]
+        [StringLength(500)]
+        public string? ImgUrl { get; set; }
     }
 }

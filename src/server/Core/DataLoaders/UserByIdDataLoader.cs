@@ -26,7 +26,7 @@ namespace Core.DataLoaders
             await using var dbContext = _dbContextFactory.CreateDbContext();
             var userDictionary = await dbContext.Users
                 .Where(u => keys.Contains(u.Id))
-                .ToDictionaryAsync(t => t.Id, cancellationToken);
+                .ToDictionaryAsync(u => u.Id, cancellationToken);
 
             return userDictionary;
         }

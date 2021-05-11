@@ -25,8 +25,8 @@ namespace Core.DataLoaders
         {
             await using var dbContext = _dbContextFactory.CreateDbContext();
             var productDictionary = await dbContext.Products
-                .Where(u => keys.Contains(u.Id))
-                .ToDictionaryAsync(t => t.Id, cancellationToken);
+                .Where(p => keys.Contains(p.Id))
+                .ToDictionaryAsync(p => p.Id, cancellationToken);
 
             return productDictionary;
         }
