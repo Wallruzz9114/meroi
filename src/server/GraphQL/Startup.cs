@@ -23,6 +23,7 @@ namespace GraphQL
                 app.UseDeveloperExceptionPage();
 
             app.UseWebSockets();
+            app.UseAuthentication();
             app.UseCors("DefaultPolicy");
             app.UseRouting();
 
